@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MM Service - Pagamento Pix</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f9f2f2;
+            font-family: Arial, Helvetica, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 25px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 60px;
+            font-weight: 900;
+            margin-bottom: 35px;
+        }
+
+        .mm {
+            color: #ff6b00;
+        }
+
+        .service {
+            color: #0877c9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 40px;
+            padding: 40px 25px;
+            color: #111;
+        }
+
+        .pix {
+            color: #00bfae;
+            font-size: 45px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .titulo {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .chave {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cnpj {
+            font-weight: bold;
+            font-size: 23px;
+            margin-top: 8px;
+        }
+
+        .botao {
+            width: 100%;
+            max-width: 600px;
+
+            border: none;
+            border-radius: 50px;
+
+            background: #20a85b;
+            color: white;
+
+            padding: 20px;
+
+            font-size: 22px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .botao:hover {
+            background: #178c4b;
+        }
+
+        .botao:active {
+            transform: scale(0.97);
+        }
+
+        #mensagem {
+            margin-top: 15px;
+            min-height: 25px;
+
+            color: #20a85b;
+            font-weight: bold;
+        }
+
+        .info {
+            margin-top: 30px;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 500px) {
+
+            .logo {
+                font-size: 42px;
+            }
+
+            .card {
+                border-radius: 30px;
+                padding: 35px 20px;
+            }
+
+            .titulo {
+                font-size: 21px;
+            }
+
+            .cnpj {
+                font-size: 20px;
+            }
+
+            .botao {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            <span class="mm">MM</span><span class="service">SERVICE</span>
+        </div>
+
+        <div class="card">
+
+            <div class="pix">
+                PIX
+            </div>
+
+            <div class="titulo">
+                Pagamento via Pix
+            </div>
+
+            <div class="chave">
+                Chave Pix (CNPJ)
+
+                <div class="cnpj">
+                    56.690.595/0001-09
+                </div>
+            </div>
+
+            <button class="botao" onclick="copiarPix()">
+                Copiar chave Pix
+            </button>
+
+            <div id="mensagem"></div>
+
+            <div class="info">
+                MM Service<br>
+                piscinas.MMService@gmail.com<br>
+                Cel: (19) 99710-5859
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Chave Pix que será copiada
+        const CHAVE_PIX = "56690595000109";
+
+
+        async function copiarPix() {
+
+            try {
+
+                await navigator.clipboard.writeText(CHAVE_PIX);
+
+                document.getElementById("mensagem").innerText =
+                    "✓ Chave Pix copiada!";
+
+            } catch (erro) {
+
+                // Método alternativo para alguns celulares/navegadores
+
+                const campo = document.createElement("textarea");
+
+                campo.value = CHAVE_PIX;
+
+                document.body.appendChild(campo);
+
+                campo.select();
+
+                document.execCommand("copy");
+
+                campo.remove();
+
+                document.getElementById("mensagem").innerText =
+                    "✓ Chave Pix copiada!";
+
+            }
+
+            setTimeout(function() {
+
+                document.getElementById("mensagem").innerText = "";
+
+            }, 3000);
+
+        }
+
+    </script>
+
+</body>
+</html>
